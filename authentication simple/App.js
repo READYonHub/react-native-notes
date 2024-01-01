@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import SignInScreen from './src/screens/SignInScreen'
+import React from 'react';
 import Constants from "expo-constants";
+import { StyleSheet, Text, View } from 'react-native';
+import SignInScreen from './src/screens/SignInScreen/SignInScreen'
+import SignUpScreen from './src/screens/SignUpScreen/SignUpScreen'
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <SignInScreen />
+    
+    {/**  
+        <SignInScreen />
+      */}
+        <SignUpScreen />
     </View>
   );
 }
