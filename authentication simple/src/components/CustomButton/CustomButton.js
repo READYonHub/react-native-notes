@@ -44,12 +44,19 @@ const styles = StyleSheet.create({
     container_PRIMARY: {
         backgroundColor: '#3B71F3',
     },
+    container_SECONDARY: {
+        borderColor: "#38B71F3",
+        borderWidth: 3,
+    },
     container_TERTIARY: {
         backgroundColor: '#e8ebed'
     },
     text: {
         fontWeight: 'bold',
         color: 'white',
+    },
+    text_SECONDARY: {
+        color: "#3B71F3",
     },
     text_TERTIARY: {
         color: 'gray',
