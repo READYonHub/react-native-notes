@@ -12,24 +12,26 @@ import SocialSignInButtons from '../../components/SocialSignInButtons'
 
 import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
 
+import { useForm } from 'react-hook-form'
 
 const SignUpScreen = () => {
-    const [useName, setUserName] = useState('');
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('');
-    const [passwordRepet, setPasswordRepet] = useState('');
+    const { control, handleSubmit, watch } = useForm()
+    const pwd = watch('password')
+    //eltarolja az erteket
 
     const navigation = useNavigation(); //a navigation objektumhoz
 
     const { height } = useWindowDimensions(); //megkapja az aktualis telefon meretet
 
-
+    const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     {/* CONFITM EMAIL NAVIGATION */ }
 
-    const onRegisterPressed = () => {
+    const onRegisterPressed = (data) => {
         //console.warn("Sign in") // felugrik egz figyelmeztetes a kepernyon
 
         navigation.navigate('ConfirmEmail')
+
+        console.warn(data)
     }
 
 
@@ -66,39 +68,75 @@ const SignUpScreen = () => {
                 {/* USERNAME */}
 
                 <CustomInput placeholder={"Username"}
-                    value={useName}
-                    setValue={setUserName}
+                    name={'username'}
+                    control={control}
+                    rules={{
+                        required: 'Username is required',
+                        minLength: {
+                            value: 4,
+                            message: 'Username should be at least 4 characters long',
+                        },
+                        maxLength: {
+                            value: 24,
+                            message: 'Username should be maximum 24 characters long',
+                        },
+                    }}
                 />
 
                 {/* EMAIL */}
 
                 <CustomInput placeholder={"Email"}
-                    value={email}
-                    setValue={setEmail}
+                    name={'email'}
+                    control={control}
+                    rules={{
+                        required: 'Email is required',
+                        pattern: {
+                            value: EMAIL_REGEX,
+                            message: 'Email is invalid',
+                        },
+                    }}
                 />
 
                 {/* PASSWORD */}
 
                 <CustomInput
                     placeholder={"Password"}
-                    value={password}
-                    setValue={setPassword}
+                    name={'password'}
+                    control={control}
                     secureTextEntry={true}
+                    rules={{
+                        required: 'Password is required',
+                        minLength: {
+                            value: 8,
+                            message: 'Password should be at least 8 characters long',
+                        },
+                        maxLength: {
+                            value: 48,
+                            message: 'Password should be maximum 48 characters long',
+                        },
+                    }}
                 />
 
                 {/* REPEAT PASSWORD */}
 
                 <CustomInput
                     placeholder={"Repeat Password"}
-                    value={passwordRepet}
-                    setValue={setPasswordRepet}
+                    name={'repeat-password'}
+                    control={control}
                     secureTextEntry={true}
+                    rules={{
+                        validate: value =>
+                            value === pwd
+                            ||
+                            'Password do not match',
+                    }}
                 />
 
                 {/* REGISTER BUTTON */}
 
                 <CustomButton text={"Register"}
-                    onPress={onRegisterPressed}
+                    //web validacio eloszor
+                    onPress={handleSubmit(onRegisterPressed)}
                 //type="PRIMARY"
                 />
 

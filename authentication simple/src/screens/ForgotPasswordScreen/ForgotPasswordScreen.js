@@ -10,10 +10,11 @@ import {
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
+import { useForm } from 'react-hook-form';
 
 
 const ForgotPasswordScreen = () => {
-    const [username, setUsername] = useState('');
+    const { control, handleSubmit } = useForm();
 
     const navigation = useNavigation(); //a navigation objektumhoz
 
@@ -22,10 +23,12 @@ const ForgotPasswordScreen = () => {
 
     {/* SEND BUTTON*/ }
 
-    const onSendPressed = () => {
+    const onSendPressed = (data) => {
         //console.warn("onSendPressed") // felugrik egz figyelmeztetes a kepernyon
 
         navigation.navigate('NewPassword')
+
+        console.warn(data)
     }
 
     const onSignInPress = () => {
@@ -57,14 +60,18 @@ const ForgotPasswordScreen = () => {
                 {/* CODE */}
 
                 <CustomInput placeholder={"Username"}
-                    value={username}
-                    setValue={setUsername}
+                    name={'username'}
+                    control={control}
+                    rules={{
+                        required: 'Username is required',
+                        
+                    }}
                 />
 
                 {/* REGISTER BUTTON */}
 
                 <CustomButton text={"Send"}
-                    onPress={onSendPressed}
+                    onPress={handleSubmit(onSendPressed)}
                 //type="PRIMARY"
                 />
 

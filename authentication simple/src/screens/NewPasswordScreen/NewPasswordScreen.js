@@ -8,21 +8,23 @@ import {
     ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
-
+import { useForm } from 'react-hook-form'
 
 const NewPasswordScreen = () => {
-    const [code, setCode] = useState('');
-    const [newPassword, SetNewPassword] = useState('');
+
+    const { control, handleSubmit } = useForm()
 
     const navigation = useNavigation(); //a navigation objektumhoz
 
 
 
     {/* SEND BUTTON*/ }
-    const onSubmitPressed = () => {
+    const onSubmitPressed = (data) => {
         //console.warn("onSubmitPress")
 
         navigation.navigate('Home')
+
+        console.warn(data)
     }
 
 
@@ -52,19 +54,42 @@ const NewPasswordScreen = () => {
                 {/* CODE */}
 
                 <CustomInput placeholder={"Code"}
-                    value={code}
-                    setValue={setCode}
+                    name={'code'}
+                    control={control}
+                    rules={{
+                        required: 'Code is required',
+                        minLength: {
+                            value: 4,
+                            message: 'Code is not correct',
+                        },
+                        maxLength: {
+                            value: 4,
+                            message: 'Code is not correct',
+                        }
+                    }}
                 />
 
                 {/* CODE */}
 
                 <CustomInput placeholder={"Enter your new password"}
-                    value={newPassword}
-                    setValue={SetNewPassword}
+                    name={'password'}
+                    control={control}
+                    rules={{
+                        required: 'Password is required',
+                        minLength: {
+                            value: 8,
+                            message: 'Password should be at least 8 characters long',
+                        },
+                        maxLength: {
+                            value: 48,
+                            message: 'Password should be maximum 48 characters long',
+                        },
+                    }}
+                    secureTextEntry
                 />
 
                 <CustomButton text={"Submit"}
-                    onPress={onSubmitPressed}
+                    onPress={handleSubmit(onSubmitPressed)}
                     type={"TERTIARY"}
                 />
 

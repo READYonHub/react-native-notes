@@ -8,19 +8,21 @@ import {
     ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
-
+import { useForm } from 'react-hook-form'
 
 const ConfirmEmailScreen = () => {
 
-    const [code, setCode] = useState('');
+    const { control, handleSubmit } = useForm()
 
     const navigation = useNavigation(); //a navigation objektumhoz
 
     {/* HOME SCREEN NAVIGATION */ }
-    const onConfirmPressed = () => {
+    const onConfirmPressed = (data) => {
         //console.warn("onConfirmPressed") // felugrik egy figyelmeztetes a kepernyon
 
         navigation.navigate('Home')
+
+        console.warn(data)
     }
 
 
@@ -57,14 +59,25 @@ const ConfirmEmailScreen = () => {
                 {/* CODE */}
 
                 <CustomInput placeholder={"Enter Your confirmation code"}
-                    value={code}
-                    setValue={setCode}
+                    name={'code'}
+                    control={control}
+                    rules={{
+                        required: 'Code is required',
+                        minLength: {
+                            value: 4,
+                            message: 'Code should be at least 4 characters long',
+                        },
+                        maxLength: {
+                            value: 4,
+                            message: 'Code should be maximum 4 characters long',
+                        },
+                    }}
                 />
 
                 {/* REGISTER BUTTON */}
 
                 <CustomButton text={"Confirm"}
-                    onPress={onConfirmPressed}
+                    onPress={handleSubmit(onConfirmPressed)}
                 //type="PRIMARY"
                 />
 

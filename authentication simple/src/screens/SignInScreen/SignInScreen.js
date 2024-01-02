@@ -10,7 +10,6 @@ import {
     Image,
     useWindowDimensions,
     ScrollView,
-    TextInput,
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
@@ -28,7 +27,10 @@ const SignInScreen = () => {
 
     const navigation = useNavigation(); //a navigation objektumhoz
 
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, formState: { errors }, } = useForm();
+
+    //rules errorokat iratja ki
+    console.log(errors)
 
     {/* SIGN IN NAVIGATION */ }
 
@@ -82,12 +84,28 @@ const SignInScreen = () => {
                 <CustomInput placeholder={"Username"}
                     name={"username"}
                     control={control}
+                    //kerjen valamit nem lehet null ertek
+                    rules={{
+                         required: 'Username is required',
+                         minLength: {
+                            value: 4,
+                            message: 'Password should be minimum 4 characters long',
+                        }, }}
                 />
 
                 <CustomInput placeholder={"Password"}
                     name={"Password"}
                     control={control}
                     secureTextEntry={true}
+                    //kerjen valamit nem lehet null ertek
+                    //tobb konyvtar https://react-hook-form.com/get-started#Registerfields#Applyvalidation
+                    rules={{
+                        required: 'Password is required',
+                        minLength: {
+                            value: 8,
+                            message: 'Password should be minimum 8 characters long',
+                        },
+                    }}
                 />
 
                 {/*
@@ -104,8 +122,6 @@ const SignInScreen = () => {
                         }
                         />
                     */}
-
-                <TextInput placeholder={'password'} />
 
                 {/* a handlerSubmit fogja eloszor validalni a mezoket */}
                 <CustomButton text={"Sign in"}

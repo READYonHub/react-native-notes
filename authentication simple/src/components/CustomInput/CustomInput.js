@@ -1,42 +1,47 @@
-import React from 'react'
-import { StyleSheet, Text, View, TextInput } from 'react-native'
-import { Controller } from 'react-hook-form'
+import React from 'react';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { Controller } from 'react-hook-form';
 
 const CustomInput = ({
     control,
     name,
+    rules = {},
     placeholder,
-    secureTextEntry }) => {
+    secureTextEntry,
+}) => {
     return (
-        <View style={styles.container}>
-            {/* Sablonbol maradt */}
-            {/*
-            <TextInput
-                value={value}
-                onChangeText={setValue}
-                placeholder={placeholder}
-                secureTextEntry={secureTextEntry}
-                style={styles.input}
-            />
-            */}
+        <Controller
+            control={control}
+            name={name}
+            rules={rules}
+            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
 
-            <Controller
-                control={control}
-                name={name}
-                render={({ field: { value, onChange, onBlur } }) =>
-                    <TextInput
-                        placeholder={placeholder}
-                        value={value}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        style={styles.input}
-                        secureTextEntry={secureTextEntry}
-                    />
-                }
-            />
-        </View>
-    )
-}
+                <>
+                    <View
+                        style={[
+                            styles.container,
+                            {/*  ha hiba van akkor a szovegdoboz pirosra valt*/ },
+                            { borderColor: error ? 'red' : '#e8e8e8' },
+                        ]}>
+                        <TextInput
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            placeholder={placeholder}
+                            style={styles.input}
+                            secureTextEntry={secureTextEntry}
+                        />
+                    </View>
+                    {error && (
+                        <Text style={{ color: 'red', alignSelf: 'stretch' }}>{error.message || 'Error'}</Text>
+                        //ha error van, vagyis nincs kitoltve valamelyik mezo, akkor Text kerul kiiratasra
+                    )}
+                </>
+
+            )}
+        />
+    );
+};
 
 export default CustomInput
 
@@ -53,5 +58,4 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 10,
     },
-    input: {},
 })
