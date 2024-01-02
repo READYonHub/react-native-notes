@@ -9,30 +9,39 @@ import {
     View,
     Image,
     useWindowDimensions,
-    ScrollView
+    ScrollView,
+    TextInput,
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
 
+import { useForm, Controller } from 'react-hook-form'
+
 const SignInScreen = () => {
+
+    {/*
     const [useName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-
-    const navigation = useNavigation(); //a navigation objektumhoz
+    */}
 
     const { height } = useWindowDimensions(); //megkapja az aktualis telefon meretet
 
+    const navigation = useNavigation(); //a navigation objektumhoz
 
-    {/* SIGN IN NAVIGATION */}
+    const { control, handleSubmit } = useForm();
 
-    const onSignInPressed = () => {
+    {/* SIGN IN NAVIGATION */ }
+
+    const onSignInPressed = (data) => {
         //console.warn("Sign in") // felugrik egz figyelmeztetes a kepernyon
         //felhasznalo hitelesites
 
         navigation.navigate('Home')
+
+        console.log(data)
     }
 
-    {/* ONFORGOT PASSWORD NAVIGATION */}
+    {/* ONFORGOT PASSWORD NAVIGATION */ }
 
     const onForgotPasswordPressed = () => {
         //console.warn("Forgot Password") // felugrik egz figyelmeztetes a kepernyon
@@ -54,7 +63,7 @@ const SignInScreen = () => {
 
     const onSignUpPress = () => {
         //console.warn("Don't have an account? Create one")
-        
+
         navigation.navigate('SignUp')
     }
 
@@ -71,16 +80,36 @@ const SignInScreen = () => {
                 />
 
                 <CustomInput placeholder={"Username"}
-                    value={useName}
-                    setValue={setUserName} />
-                <CustomInput
-                    placeholder={"Password"}
-                    value={password}
-                    setValue={setPassword}
+                    name={"username"}
+                    control={control}
+                />
+
+                <CustomInput placeholder={"Password"}
+                    name={"Password"}
+                    control={control}
                     secureTextEntry={true}
                 />
+
+                {/*
+                <Controller
+                    control={control}
+                    name='username'
+                    render={({ field: { value, onChange, onBlur } }) =>
+                    <TextInput
+                            placeholder={'username'}
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            />
+                        }
+                        />
+                    */}
+
+                <TextInput placeholder={'password'} />
+
+                {/* a handlerSubmit fogja eloszor validalni a mezoket */}
                 <CustomButton text={"Sign in"}
-                    onPress={onSignInPressed}
+                    onPress={handleSubmit(onSignInPressed)}
                 //type="PRIMARY"
                 />
 

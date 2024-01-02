@@ -15,7 +15,9 @@ export default function App() {
         <ForgotPasswordScreen />
         <NewPasswordScreen />
       */}
+
       <Navigation />
+
     </View>
   );
 }

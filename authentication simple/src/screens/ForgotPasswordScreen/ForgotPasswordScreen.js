@@ -29,9 +29,9 @@ const ForgotPasswordScreen = () => {
     }
 
     const onSignInPress = () => {
-       // console.warn("onSignInPress")
+        // console.warn("onSignInPress")
 
-       navigation.navigate('SignIn')
+        navigation.navigate('SignIn')
     }
 
     const onResendPress = () => {
