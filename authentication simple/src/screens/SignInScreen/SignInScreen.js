@@ -12,18 +12,32 @@ import {
     ScrollView
 } from 'react-native'
 
+import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
+
 const SignInScreen = () => {
     const [useName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigation = useNavigation(); //a navigation objektumhoz
+
     const { height } = useWindowDimensions(); //megkapja az aktualis telefon meretet
 
+
+    {/* SIGN IN NAVIGATION */}
+
     const onSignInPressed = () => {
-        console.warn("Sign in") // felugrik egz figyelmeztetes a kepernyon
+        //console.warn("Sign in") // felugrik egz figyelmeztetes a kepernyon
+        //felhasznalo hitelesites
+
+        navigation.navigate('Home')
     }
 
+    {/* ONFORGOT PASSWORD NAVIGATION */}
+
     const onForgotPasswordPressed = () => {
-        console.warn("Forgot Password") // felugrik egz figyelmeztetes a kepernyon
+        //console.warn("Forgot Password") // felugrik egz figyelmeztetes a kepernyon
+
+        navigation.navigate('ForgotPassword')
     }
 
     const onSignInFacebook = () => {
@@ -39,7 +53,9 @@ const SignInScreen = () => {
     }
 
     const onSignUpPress = () => {
-        console.warn("Don't have an account? Create one")
+        //console.warn("Don't have an account? Create one")
+        
+        navigation.navigate('SignUp')
     }
 
     return (

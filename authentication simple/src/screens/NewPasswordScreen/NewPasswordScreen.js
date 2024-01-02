@@ -5,26 +5,32 @@ import {
     StyleSheet,
     View,
     Text,
-    useWindowDimensions,
     ScrollView
 } from 'react-native'
+import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
+
 
 const NewPasswordScreen = () => {
     const [code, setCode] = useState('');
     const [newPassword, SetNewPassword] = useState('');
 
-    const { height } = useWindowDimensions(); //megkapja az aktualis telefon meretet
+    const navigation = useNavigation(); //a navigation objektumhoz
 
-    const onSendPressed = () => {
-        console.warn("onSendPressed") // felugrik egz figyelmeztetes a kepernyon
+
+
+    {/* SEND BUTTON*/ }
+    const onSubmitPressed = () => {
+        //console.warn("onSubmitPress")
+
+        navigation.navigate('Home')
     }
 
-    const onSubmitPress = () => {
-        console.warn("onSubmitPress")
-    }
 
-    const onSignInPress = () => {
-        console.warn("onSignInPress")
+    {/* BACK TO SIGN IN BUTTON*/ }
+    const onSignInPressed = () => {
+        //console.warn("onSignInPress")
+
+        navigation.navigate('SignIn')
     }
 
     return (
@@ -57,20 +63,13 @@ const NewPasswordScreen = () => {
                     setValue={SetNewPassword}
                 />
 
-                {/* REGISTER BUTTON */}
-
-                <CustomButton text={"Send"}
-                    onPress={onSendPressed}
-                //type="PRIMARY"
-                />
-
                 <CustomButton text={"Submit"}
-                    onPress={onSubmitPress}
+                    onPress={onSubmitPressed}
                     type={"TERTIARY"}
                 />
 
                 <CustomButton text={"Back to Sign in"}
-                    onPress={onSignInPress}
+                    onPress={onSignInPressed}
                     type={"TERTIARY"}
                 />
 

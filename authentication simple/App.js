@@ -1,11 +1,7 @@
 import React from 'react';
 import Constants from "expo-constants";
 import { StyleSheet, Text, View } from 'react-native';
-import SignInScreen from './src/screens/SignInScreen/SignInScreen'
-import SignUpScreen from './src/screens/SignUpScreen/SignUpScreen'
-import ConfirmEmailScreen from './src/screens/ConfirmEmailScreen/ConfirmEmailScreen';
-import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen/ForgotPasswordScreen';
-import NewPasswordScreen from './src/screens/NewPasswordScreen';
+import Navigation from './src/navigation';
 
 
 export default function App() {
@@ -17,8 +13,9 @@ export default function App() {
         <SignUpScreen />
         <ConfirmEmailScreen />
         <ForgotPasswordScreen />
+        <NewPasswordScreen />
       */}
-      <NewPasswordScreen />
+      <Navigation />
     </View>
   );
 }

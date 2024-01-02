@@ -10,6 +10,8 @@ import {
 } from 'react-native'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 
+import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
+
 
 const SignUpScreen = () => {
     const [useName, setUserName] = useState('');
@@ -17,18 +19,32 @@ const SignUpScreen = () => {
     const [password, setPassword] = useState('');
     const [passwordRepet, setPasswordRepet] = useState('');
 
+    const navigation = useNavigation(); //a navigation objektumhoz
+
     const { height } = useWindowDimensions(); //megkapja az aktualis telefon meretet
 
+
+    {/* CONFITM EMAIL NAVIGATION */ }
+
     const onRegisterPressed = () => {
-        console.warn("Sign in") // felugrik egz figyelmeztetes a kepernyon
+        //console.warn("Sign in") // felugrik egz figyelmeztetes a kepernyon
+
+        navigation.navigate('ConfirmEmail')
     }
 
+
+    {/* CONFITM EMAIL NAVIGATION */ }
+
     const onSignInPress = () => {
-        console.warn("onSignInPress")
+        //console.warn("onSignInPress")
+
+        navigation.navigate('SignIn')
     }
 
     const onTermOfUsePressed = () => {
         console.warn("onTermOfUsePressed")
+
+        //ide kell valami majd
     }
 
     return (
@@ -97,7 +113,7 @@ const SignUpScreen = () => {
                     <Text style={styles.linkPrivacy}
                         onPress={onTermOfUsePressed}
                     >
-                       Privacy Policy
+                        Privacy Policy
                     </Text>
                 </Text>
 

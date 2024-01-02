@@ -5,27 +5,37 @@ import {
     StyleSheet,
     View,
     Text,
-    useWindowDimensions,
     ScrollView
 } from 'react-native'
-import SocialSignInButtons from '../../components/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
 
 
 const ConfirmEmailScreen = () => {
+
     const [code, setCode] = useState('');
 
-    const { height } = useWindowDimensions(); //megkapja az aktualis telefon meretet
+    const navigation = useNavigation(); //a navigation objektumhoz
 
+    {/* HOME SCREEN NAVIGATION */ }
     const onConfirmPressed = () => {
-        console.warn("onConfirmPressed") // felugrik egz figyelmeztetes a kepernyon
+        //console.warn("onConfirmPressed") // felugrik egy figyelmeztetes a kepernyon
+
+        navigation.navigate('Home')
     }
 
+
+    {/* SIGN IN SCREEN NAVIGATION */ }
+
     const onSignInPress = () => {
-        console.warn("onSignInPress")
+        //console.warn("onSignInPress")
+
+        navigation.navigate('SignIn')
     }
 
     const onResendPress = () => {
         console.warn("onResendPress")
+
+        //ide kell majd valami validator
     }
 
     return (

@@ -9,17 +9,29 @@ import {
     ScrollView
 } from 'react-native'
 
+import { useNavigation } from '@react-navigation/native'//hozzaferest nyerunk a navigation objektumhoz
+
+
 const ForgotPasswordScreen = () => {
     const [username, setUsername] = useState('');
 
+    const navigation = useNavigation(); //a navigation objektumhoz
+
+
     const { height } = useWindowDimensions(); //megkapja az aktualis telefon meretet
 
+    {/* SEND BUTTON*/ }
+
     const onSendPressed = () => {
-        console.warn("onSendPressed") // felugrik egz figyelmeztetes a kepernyon
+        //console.warn("onSendPressed") // felugrik egz figyelmeztetes a kepernyon
+
+        navigation.navigate('NewPassword')
     }
 
     const onSignInPress = () => {
-        console.warn("onSignInPress")
+       // console.warn("onSignInPress")
+
+       navigation.navigate('SignIn')
     }
 
     const onResendPress = () => {
